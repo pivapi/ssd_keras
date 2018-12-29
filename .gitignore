@@ -101,3 +101,5 @@ local*
 dataset_pascal_voc_07+12/
 ssd300_pascal_07+12/
 weights/
+*.h5
+*.csv
