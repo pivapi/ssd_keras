@@ -103,3 +103,4 @@ ssd300_pascal_07+12/
 weights/
 *.h5
 *.csv
+.idea/
