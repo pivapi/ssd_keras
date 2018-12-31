@@ -9,6 +9,8 @@ What you see below are the training results of running the [`ssd300_training.ipy
 
 Important note about the data shown below:
 
+**SGD在训练初期不稳定，因此用SGD做优化算法时，不要过分关注训练的早期的损失函数，用Adam做优化算法的话就没有这种现象**
+
 SGD is inherently unstable at the beginning of the training. Remember that the optimization is stochastic, i.e. if you start a fresh training ten times, the loss pattern over the first training steps can look different each time, and in the case of SGD, very different. One time the loss might decrease smoothly right from the start, which is what happened in my case below. Another time the loss might get temporarily stuck on a plateau very early on such that nothing seems to be happening for a couple of hundred training steps. Yet another time the loss might blow up right at the start and become `NaN`. As long as the loss doesn't become `NaN`, the final convergence loss does, in my experience, not strongly depend on the loss progression in the very early phase of the training. In other words, even if the loss doesn't decrease as fast in the beginning, you will likely still end up with the same convergence loss, it will just take longer to get there. Just as a benchmark, after the first 1,000 training steps I've seen anything between around 10 and 15 as values for the training loss. The Adam optimizer doesn't suffer from this variability to the same extent and is evidently the superior optimizer, but since the original Caffe models were trained with SGD, I used that to reproduce the original results.
 
 ### Training and Validation Loss
@@ -20,6 +22,7 @@ What you see below are the training and validation loss every 1,000 training ste
 ### Mean Average Precision
 
 Here are the intermediate and final mAP values on Pascal VOC 2007 `test`, evaluated using the official Pascal VOCdevkit 2007 Matlab evaluation code. The table shows the best values after every 20,000 training steps. Once again, the progress may be slower depending on how the early phase of the training is going. In another training I started with the same configuration, I got an mAP of only 0.665 after the first 20,000 training steps. The full model after 102,000 training steps can be downloaded [here](https://drive.google.com/open?id=1-MYYaZbIHNPtI2zzklgVBAjssbP06BeA).
+
 
 |             | Steps |  20k     |  40k     |  60k     |  80k     |  100k    |  102k    |
 |-------------|-------|----------|----------|----------|----------|----------|----------|
